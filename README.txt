@@ -1,7 +1,7 @@
-GTA _ VI Rainbow Prank Website
+GTA _ VI  
 
 Files:
-- index.html: complete responsive prank website
+- index.html: complete responsive website
 - icon.png: original unofficial fan-style icon (if included)
 
 Run locally:
