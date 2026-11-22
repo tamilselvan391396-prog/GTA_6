@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17102d">
+<title>GTA _ VI | Rainbow Prank</title>
+<link rel="icon" href="icon.png">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,Arial,sans-serif;color:#fff;background:#130d2a;display:grid;place-items:center;overflow:hidden}
+body:before{content:"";position:fixed;inset:-30%;background:conic-gradient(from 0deg,#ff416c,#ff9f43,#ffe66d,#36d399,#39a0ff,#b66dff,#ff416c);filter:blur(90px);opacity:.48;animation:spin 18s linear infinite;z-index:-2}
+body:after{content:"";position:fixed;inset:0;background:radial-gradient(circle at center,transparent,#10091f 85%);z-index:-1}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes glitch{0%,100%{transform:translate(0);filter:none}20%{transform:translate(-7px,3px);filter:hue-rotate(90deg)}40%{transform:translate(6px,-3px);filter:contrast(2)}60%{transform:translate(-3px,-2px);filter:hue-rotate(-90deg)}80%{transform:translate(4px,2px);filter:brightness(1.7)}}
+.card{width:min(92vw,520px);padding:32px 24px;border:1px solid #ffffff40;border-radius:28px;text-align:center;background:#1c1535d9;box-shadow:0 25px 90px #0008;backdrop-filter:blur(18px)}
+.logo{font-size:clamp(22px,6vw,34px);font-weight:1000;letter-spacing:3px;margin:0 0 20px;text-shadow:0 3px 18px #ff4aa8}
+h1{font-size:clamp(29px,8vw,48px);line-height:1.1;margin:12px 0 18px;font-weight:1000}
+.rainbow{background:linear-gradient(100deg,#ff5364,#ff9f43,#ffe45e,#50e3a4,#4aa8ff,#c77dff);background-size:300% 300%;animation:colors 5s ease infinite;-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes colors{50%{background-position:100% 50%}}
+.subtitle{font-size:clamp(17px,4.5vw,23px);font-weight:850;letter-spacing:1px;margin:20px 0 8px}
+.timer{font-size:clamp(56px,16vw,82px);font-variant-numeric:tabular-nums;font-weight:900;margin:0}
+.note{color:#e7ddff;font-size:13px;line-height:1.5;margin-top:22px}
+button{border:0;border-radius:999px;padding:13px 24px;background:linear-gradient(100deg,#ff4f9a,#8d5cff);color:white;font-weight:800;font-size:15px;margin-top:20px;cursor:pointer}
+.hidden{display:none}.glitch{animation:glitch .18s steps(2) 4}
+.badge{display:inline-block;border:1px solid #ffffff55;border-radius:99px;padding:6px 12px;font-size:11px;letter-spacing:1.5px;color:#ffe5fa}
+</style>
+</head>
+<body>
+<main class="card" id="card" aria-live="polite">
+  <div class="logo">GTA <span class="rainbow">_ VI</span></div>
+  <span class="badge">RAINBOW PRANK EXPERIENCE</span>
+  <div id="content">
+    <h1 class="rainbow">SYSTEM GLITCH…</h1>
+    <p class="note">A harmless visual prank. Nothing is being hacked or changed.</p>
+  </div>
+</main>
+<script>
+(() => {
+  const content=document.getElementById('content'), card=document.getElementById('card');
+  let audioCtx=null, timerId=null;
+  function beep(){
+    try{
+      if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+      if(audioCtx.state==='suspended') audioCtx.resume();
+      const osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+      osc.type='sine'; osc.frequency.value=740; gain.gain.value=.045;
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(); osc.stop(audioCtx.currentTime+.12);
+    }catch(e){}
+  }
+  function glitch(next){
+    let n=0; const flashes=['#10091f','#38103f','#073b43','#10091f','#32102b'];
+    const interval=setInterval(()=>{
+      card.style.background=flashes[n%flashes.length]+'dd';
+      card.classList.toggle('glitch'); n++;
+      if(n>=5){clearInterval(interval);card.classList.remove('glitch');card.style.background='#1c1535d9';next();}
+    },150);
+  }
+  function firstVisit(){
+    content.innerHTML=`
+      <h1 class="rainbow">YOU ARE GAY! 🌈😂</h1>
+      <div class="subtitle">WAIT FOR THE SURPRISE…</div>
+      <div class="timer" id="timer">01:00</div>
+      <p class="note">Sound effects are optional. Tap the button to enable sound, or let the countdown continue silently.</p>
+      <button id="soundBtn" type="button">ENABLE SOUND 🔊</button>
+      <p class="note">Just a joke screen. No files, accounts, settings or personal data are accessed.</p>`;
+    let seconds=60, sound=false;
+    document.getElementById('soundBtn').addEventListener('click',()=>{
+      sound=true; beep(); document.getElementById('soundBtn').textContent='SOUND ON 🔊';
+    });
+    const timer=document.getElementById('timer');
+    timerId=setInterval(()=>{
+      seconds--; timer.textContent=`00:${String(seconds).padStart(2,'0')}`;
+      if(sound && seconds%10===0) beep();
+      if(seconds<=0){clearInterval(timerId);showReveal();}
+    },1000);
+  }
+  function showReveal(){
+    content.innerHTML=`<h1 class="rainbow">🎉 IT'S CONFIRMED…<br>YOU'RE GAY! 🌈😂</h1>
+    <p class="subtitle">JUST KIDDING! 💖</p><p class="note">You got pranked. This website is harmless.</p>`;
+  }
+  function secondVisit(){
+    content.innerHTML=`<h1 class="rainbow">🌈 CONFIRMED! 🌈</h1>
+    <p class="subtitle">THE LOOK DOESN'T MATTER…</p>
+    <h1>DEEP INSIDE YOUR HEART,<br><span class="rainbow">YOU'RE GAY! 😂</span></h1>
+    <p class="note">We already revealed your surprise! This is only a joke.</p>`;
+  }
+  let visits=0;
+  try{visits=Number(localStorage.getItem('gtavi_prank_visits')||'0');localStorage.setItem('gtavi_prank_visits',String(visits+1));}
+  catch(e){visits=0;}
+  glitch(()=>{if(visits===0)firstVisit();else secondVisit();});
+})();
+</script>
+</body>
+</html>
